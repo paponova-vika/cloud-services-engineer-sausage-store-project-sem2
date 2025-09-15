@@ -1,1 +1,7 @@
 .env
+/.idea/*
+backend/target/*
+frontend/node_modules/*
+frontend/.idea/*
+backend/.idea/*
+backend-report/.idea/*
