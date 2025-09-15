@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-mongodb-job
+  annotations:
+    helm.sh/hook: post-install
+    helm.sh/hook-weight: "5"
+spec:
+  template:
+    spec:
+      containers:
+        - name: init-mongodb
+          image: mongo:7.0
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mongo --host mongodb:27017 -u "$MONGO_INITDB_ROOT_USERNAME" -p "$MONGO_INITDB_ROOT_PASSWORD" --authenticationDatabase admin <<EOF
+                use reports;
+                db.createUser({
+                  user: "report_user",
+                  pwd: "report_password",
+                  roles: [ { role: "readWrite", db: "reports" } ]
+                });
+              EOF
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: {{ .Values.mongodb.env.MONGO_INITDB_ROOT_USERNAME }}
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: {{ .Values.mongodb.env.MONGO_INITDB_ROOT_PASSWORD }}
+      restartPolicy: OnFailure
+  backoffLimit: 4
