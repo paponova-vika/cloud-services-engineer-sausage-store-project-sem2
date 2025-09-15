@@ -16,7 +16,7 @@ spec:
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   replicas: {{ .Values.replicas }}
   strategy:
-{{ toYaml .Values.strategy | indent 4 }} 
+    type: {{ .Values.strategy }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}-{{ .Chart.Name }}
@@ -59,13 +59,11 @@ spec:
                 configMapKeyRef:
                   name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
                   key: log_path
-          resources:
-{{ toYaml .Values.resources | indent 12 }} 
+          resources: {{ .Values.resources }}
           ports:
             - name: {{ .Chart.Name }}
               containerPort: {{ .Values.containerPort }}
-          livenessProbe:
-{{ toYaml .Values.livenessProbe | indent 12 }} 
+          livenessProbe: {{ .Values.livenessProbe }}
       volumes:
       - name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
         configMap:
@@ -91,7 +89,5 @@ spec:
     apiVersion: "apps/v1"
     kind: Deployment
     name: {{ .Release.Name }}-{{ .Chart.Name }}
-  updatePolicy:
-{{ toYaml .Values.vpa.updatePolicy | indent 4 }} 
-  resourcePolicy:
-{{ toYaml .Values.vpa.resourcePolicy | indent 4 }} 
+  updatePolicy: {{ .Values.vpa.updatePolicy }}
+  resourcePolicy: {{ .Values.vpa.resourcePolicy }}
