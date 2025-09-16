@@ -101,8 +101,7 @@ jobs:
             version: 'latest'
         - name: Configure kubeconfig
           run: |
-            echo "$KUBE_CONFIG" | base64 --decode > kubeconfig
-            export KUBECONFIG=$PWD/kubeconfig
+            export $KUBE_CONFIG=$PWD/kubeconfig
             kubectl config set-context --current --namespace=$SAUSAGE_STORE_NAMESPACE
             kubectl get pods -o wide
         - name: Update Helm Repos
