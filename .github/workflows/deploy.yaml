@@ -69,20 +69,10 @@ jobs:
       runs-on: ubuntu-latest
       needs: build_and_push_to_docker_hub
       steps:
-      #### Опишите необходимые шаги
         - name: Check out the repo
-          # Получение исходного кода из репозитория:
           uses: actions/checkout@v3
         - name: Set up Helm
           uses: azure/setup-helm@v3
-#        - name: Login to Nexus Helm Repo
-#          uses: deliverybot/helm-push@v1
-#          with:
-#            helm_repo_url: ${{ env.NEXUS_HELM_REPO }}
-#            helm_repo_username: ${{ env.NEXUS_HELM_REPO_USER }}
-#            helm_repo_password: ${{ env.NEXUS_HELM_REPO_PASSWORD }}
-#            command: repo add
-#            repo_name: nexus
         - name: Package Helm Chart
           run: helm package ./sausage-store-chart
         - name: Push Helm Chart to Nexus
@@ -97,13 +87,8 @@ jobs:
       runs-on: ubuntu-latest
       needs: add_helm_chart_to_nexus
       steps:
-      #### Опишите необходимые шаги
         - name: Set nexus repo
           run:  helm repo add nexus $NEXUS_HELM_REPO --username $NEXUS_HELM_REPO_USER --password $NEXUS_HELM_REPO_PASSWORD
-#        - name: Check out the repo
-#          uses: actions/checkout@v3
-#        - name: Set up Helm
-#          uses: azure/setup-helm@v3
         - name: Configure kubectl
           uses: azure/setup-kubectl@v3
           with:
@@ -114,14 +99,6 @@ jobs:
             export KUBECONFIG=$PWD/kubeconfig
             kubectl config set-context --current --namespace=$SAUSAGE_STORE_NAMESPACE
             kubectl get pods -o wide
-#        - name: Login to Nexus Helm Repo
-#          uses: deliverybot/helm-push@v1
-#          with:
-#            helm_repo_url: ${{ env.NEXUS_HELM_REPO }}
-#            helm_repo_username: ${{ env.NEXUS_HELM_REPO_USER }}
-#            helm_repo_password: ${{ env.NEXUS_HELM_REPO_PASSWORD }}
-#            command: repo add
-#            repo_name: nexus
         - name: Update Helm Repos
           run: helm repo update
         - name: Deploy Helm Chart
