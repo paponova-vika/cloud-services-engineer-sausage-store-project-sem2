@@ -18,7 +18,7 @@ frontend:
     path: /
     pathType: Prefix
     tlsSecret: 2sem-students-projects-wildcard-secret
-  containerPort: 80
+  containerPort: 8080
   image: paponova/sausage-frontend:latest
   resources:
     requests:
