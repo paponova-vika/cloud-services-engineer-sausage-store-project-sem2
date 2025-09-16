@@ -18,9 +18,9 @@ spec:
               mongo --host mongodb:27017 -u "$MONGO_INITDB_ROOT_USERNAME" -p "$MONGO_INITDB_ROOT_PASSWORD" --authenticationDatabase admin <<EOF
                 use reports;
                 db.createUser({
-                  user: "report_user",
-                  pwd: "report_password",
-                  roles: [ { role: "readWrite", db: "reports" } ]
+                  user: "reports",
+                  pwd: "reportspassword",
+                  roles: [ { role: "readWrite", db: "sausage-store" } ]
                 });
               EOF
           env:
