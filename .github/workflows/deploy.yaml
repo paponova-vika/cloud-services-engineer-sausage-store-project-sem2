@@ -77,14 +77,14 @@ jobs:
           run: helm package ./sausage-store-chart
         - name: Set nexus repo
           run: helm repo add nexus $NEXUS_HELM_REPO --username $NEXUS_HELM_REPO_USER --password $NEXUS_HELM_REPO_PASSWORD
-        - name: Install Helm Push plugin
-          run: helm plugin install https://github.com/chartmuseum/helm-push
-        - name: Push Helm Chart to Nexus (chartmuseum API)
-          run: helm cm-push sausage-store-0.1.0.tgz nexus
-#        - name: Push Helm Chart to Nexus
-#          run: |
+#        - name: Install Helm Push plugin
+#          run: helm plugin install https://github.com/chartmuseum/helm-push
+#        - name: Push Helm Chart to Nexus (chartmuseum API)
+#          run: helm cm-push sausage-store-0.1.0.tgz nexus
+        - name: Push Helm Chart to Nexus
+          run: |
 #            helm repo add nexus $NEXUS_HELM_REPO --username $NEXUS_HELM_REPO_USER --password $NEXUS_HELM_REPO_PASSWORD
-#            helm push sausage-store-0.1.0.tgz nexus
+            helm push sausage-store-0.1.0.tgz oci://nexus
 
   # Настраиваем доступ к кластеру Kubernetes
   # Деплоим приложения в кластер Kubernetes с помощью helm-чарт
