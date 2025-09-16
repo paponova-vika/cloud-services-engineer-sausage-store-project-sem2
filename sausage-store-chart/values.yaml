@@ -8,7 +8,7 @@ global:
 
 frontend:
   replicas: 1
-  revisionHistoryLimit: 15
+  revisionHistoryLimit: 3
   strategy:
     type: Recreate
   service:
@@ -42,7 +42,7 @@ backend:
     logPath: /logs
   service:
     port: 8080
-  revisionHistoryLimit: 15
+  revisionHistoryLimit: 3
   replicas: 1
   strategy: RollingUpdate
   image: paponova/sausage-backend:latest
@@ -73,7 +73,7 @@ backend-report:
     scrape: "true"
   service:
     port: "8080"
-  revisionHistoryLimit: 15
+  revisionHistoryLimit: 3
   strategy: Recreate
   image: paponova/sausage-backend-report:latest
   imagePullPolicy: Always
