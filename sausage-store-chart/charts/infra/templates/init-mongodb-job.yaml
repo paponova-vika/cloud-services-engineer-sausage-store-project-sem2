@@ -15,14 +15,14 @@ spec:
             - /bin/sh
             - -c
             - |
-              mongo --host mongodb:27017 -u "$MONGO_INITDB_ROOT_USERNAME" -p "$MONGO_INITDB_ROOT_PASSWORD" --authenticationDatabase admin <<EOF
-                use reports;
+              mongo --host mongodb:27017 -u "$MONGO_INITDB_ROOT_USERNAME" -p "$MONGO_INITDB_ROOT_PASSWORD" --authenticationDatabase admin --eval '
+                use sausage-store;
                 db.createUser({
                   user: "reports",
                   pwd: "reportspassword",
                   roles: [ { role: "readWrite", db: "sausage-store" } ]
                 });
-              EOF
+              '
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: {{ .Values.mongodb.env.MONGO_INITDB_ROOT_USERNAME }}
