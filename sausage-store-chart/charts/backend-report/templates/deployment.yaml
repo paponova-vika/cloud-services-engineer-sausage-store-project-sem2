@@ -44,7 +44,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
                   key: db_uri
-          resources: {{ .Values.resources }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
           ports:
             - name: {{ .Chart.Name }}
               containerPort: {{ .Values.containerPort }}
