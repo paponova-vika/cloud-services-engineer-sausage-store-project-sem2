@@ -26,7 +26,7 @@ frontend:
       cpu: "100m"
     limits:
       memory: "128Mi"
-      cpu: "300"
+      cpu: "300m"
   nginxConf: nginx.conf
 
 backend:
@@ -54,7 +54,7 @@ backend:
       cpu: "100m"
     limits:
       memory: "512Mi"
-      cpu: "300"
+      cpu: "300m"
   containerPort: 8080
   livenessProbe:
     httpGet:
@@ -84,7 +84,7 @@ backend-report:
       cpu: "100m"
     limits:
       memory: "512Mi"
-      cpu: "300"
+      cpu: "300m"
   containerPort: 8080
   livenessProbe:
     httpGet:
