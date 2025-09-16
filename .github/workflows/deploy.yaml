@@ -102,7 +102,7 @@ jobs:
         - name: Configure kubeconfig
           run: |
             mkdir -p ~/.kube
-            echo $KUBE_CONFIG > ~/.kube/kubeconfig
+            echo $KUBE_CONFIG > ~/.kube/config
             kubectl config set-context --current --namespace=$SAUSAGE_STORE_NAMESPACE
             kubectl get pods -o wide
         - name: Update Helm Repos
