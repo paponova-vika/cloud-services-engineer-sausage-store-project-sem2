@@ -72,7 +72,7 @@ backend-report:
     port: "8080"
     scrape: "true"
   service:
-    port: 8080
+    port: "8080"
   revisionHistoryLimit: 15
   strategy: Recreate
   image: paponova/sausage-backend-report:latest
