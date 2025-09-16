@@ -32,7 +32,7 @@ spec:
               memory: "512Mi"
           volumeMounts:
             - name: postgresql-data
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql/data/pgdata
   volumeClaimTemplates:
   - metadata:
       name: postgresql-data
