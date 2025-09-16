@@ -44,8 +44,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
                   key: db_uri
-          resources {{ .Values.resources }}
-          ports
+          resources: {{ .Values.resources }}
+          ports:
             - name: {{ .Chart.Name }}
               containerPort: {{ .Values.containerPort }}
           livenessProbe: {{ .Values.livenessProbe }}
