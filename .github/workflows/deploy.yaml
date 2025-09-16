@@ -106,5 +106,5 @@ jobs:
       - name: Deploy Helm Chart
         run: |
           helm upgrade --install sausage-store-release nexus/sausage-store \
-          -n $SAUSAGE_STORE_NAMESPACE --dry-run --debug -f ./values.yaml --wait --timeout 15m0s 
+          -n $SAUSAGE_STORE_NAMESPACE --dry-run --debug --wait --timeout 15m0s 
           kubectl get all
