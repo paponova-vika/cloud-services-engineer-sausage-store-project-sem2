@@ -32,7 +32,7 @@ spec:
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           ports:
-            - name: {{ .Chart.Name }}
+            - name: http
               containerPort: {{ .Values.containerPort }}
           volumeMounts:
             - name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
