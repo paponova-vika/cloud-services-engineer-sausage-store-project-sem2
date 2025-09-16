@@ -44,7 +44,8 @@ backend:
     port: 8080
   revisionHistoryLimit: 3
   replicas: 1
-  strategy: RollingUpdate
+  strategy:
+    type: RollingUpdate
   image: paponova/sausage-backend:latest
   imagePullPolicy: Always
   resources:
@@ -59,9 +60,9 @@ backend:
     httpGet:
       path: /actuator/health
       port: 8080
-      initialDelaySeconds: 60
-      periodSeconds: 5
-      failureThreshold: 5
+    initialDelaySeconds: 60
+    periodSeconds: 5
+    failureThreshold: 5
   vpa:
     updatePolicy:
       updateMode: "Off"
@@ -89,9 +90,9 @@ backend-report:
     httpGet:
       path: /health
       port: 8080
-      initialDelaySeconds: 60
-      periodSeconds: 5
-      failureThreshold: 5
+    initialDelaySeconds: 60
+    periodSeconds: 5
+    failureThreshold: 5
   hpa:
     minReplicas: 1
     maxReplicas: 3
