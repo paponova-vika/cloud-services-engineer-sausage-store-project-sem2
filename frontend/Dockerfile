@@ -19,5 +19,4 @@ COPY --chown=nginx:nginx --from=build /app/dist /usr/share/nginx/html
 USER nginx
 EXPOSE 80
 
-ENTRYPOINT ["nginx", "-c", "/etc/nginx/nginx.conf"]
 CMD ["nginx", "-g", "daemon off;"]
