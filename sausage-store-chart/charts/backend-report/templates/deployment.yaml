@@ -50,12 +50,12 @@ spec:
               containerPort: {{ .Values.containerPort }}
           livenessProbe: {{ .Values.livenessProbe }}
       volumes:
-      - name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
-        configMap:
-          name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
-          items:
-            - key: port
-              path: port
+        - name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
+          configMap:
+            name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
+            items:
+              - key: port
+                path: port
 
 ---
 apiVersion: autoscaling/v2

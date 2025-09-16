@@ -35,10 +35,10 @@ spec:
             - name: {{ .Chart.Name }}
               containerPort: {{ .Values.containerPort }}
           volumeMounts:
-          - name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
-            mountPath: /etc/nginx/{{ .Values.nginxConf }}
-            subPath: {{ .Values.nginxConf }}
-            readOnly: true
+            - name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
+              mountPath: /etc/nginx/{{ .Values.nginxConf }}
+              subPath: {{ .Values.nginxConf }}
+              readOnly: true
       volumes:
         - name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
           configMap:
