@@ -61,7 +61,7 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .Release.Name }}-{{ .Chart.Name }}-vpa
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-hpa
 spec:
   metrics:
     - resource:
@@ -85,4 +85,4 @@ metadata:
   name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
 type: Opaque
 data:
-  db_uri: bW9uZ29kYjovL3Jvb3Q6cm9vdHBhc3N3b3JkQG1vbmdvZGI6MjcwMTc=
+  db_uri: bW9uZ29kYjovL3JlcG9ydHM6cmVwb3J0c3Bhc3N3b3JkQG1vbmdvZGI6MjcwMTcvc2F1c2FnZS1zdG9yZQ==
