@@ -7,7 +7,6 @@ global:
 
 
 frontend:
-### В чарте frontend отсутствуют некоторые важные файлы. Поймите какие и опишите их.
   replicas: 1
   revisionHistoryLimit: 15
   strategy:
@@ -15,11 +14,12 @@ frontend:
   service:
     port: 80
   ingress:
-    host: YOUR_STUDENT_HOSTNAME.students-projects.ru # Корректный домен будет указан в задании
+    host: front-paponova.2sem.students-projects.ru
     path: /
     pathType: Prefix
+    tlsSecret: 2sem-students-projects-wildcard-secret
   containerPort: 80
-  image: YOUR_DOCKERHUB/sausage-frontend:latest
+  image: paponova/sausage-frontend:latest
   resources:
     requests:
       memory: "128Mi"
@@ -44,9 +44,8 @@ backend:
     port: 8080
   revisionHistoryLimit: 15
   replicas: 1
-  strategy:
-  ### Опишите стратегию RollingUpdate для бэкенда
-  image: YOUR_DOCKERHUB/sausage-backend:latest
+  strategy: RollingUpdate
+  image: paponova/sausage-backend:latest
   imagePullPolicy: Always
   resources:
     requests:
@@ -57,20 +56,54 @@ backend:
       cpu: "1"
   containerPort: 8080
   livenessProbe:
-  ### Опишите LivenessProbe для бэкенда
+    httpGet:
+      path: /actuator/health
+      port: 8080
+      initialDelaySeconds: 60
+      periodSeconds: 5
+      failureThreshold: 5
   vpa:
-  ### Опишите VPA для бэкенда
+    updatePolicy:
+      updateMode: "Off"
 
 backend-report:
-### Опишите значения для backend-report
-### Приложение должно использовать стратегию Recreate
-### Приложение использует переменную PORT - порт, на котором оно запустится и DB - Uri-подключение к mongodb. 
-### DB положите в Secret, PORT в ConfigMap
-### Опишите HPA для backend-report
+  annotations:
+    path: /health
+    port: "8080"
+    scrape: "true"
+  service:
+    port: 8080
+  revisionHistoryLimit: 15
+  strategy: Recreate
+  image: paponova/sausage-backend-report:latest
+  imagePullPolicy: Always
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "1"
+  containerPort: 8080
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+      initialDelaySeconds: 60
+      periodSeconds: 5
+      failureThreshold: 5
+  hpa:
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 50
 
 infra:
   postgresql:
-  ### Опишите необходимые переменные для развертывания PostgresQL в кластере Kubernetes
+    env:
+      POSTGRES_DB: sausage-store
+      POSTGRES_USER: store
+      POSTGRES_PASSWORD: storepassword
+    containerPort: 5432
   mongodb:
     env:
       MONGO_INITDB_ROOT_USERNAME: root
