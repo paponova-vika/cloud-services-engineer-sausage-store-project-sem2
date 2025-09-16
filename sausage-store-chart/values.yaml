@@ -69,7 +69,7 @@ backend:
 
 backend-report:
   annotations:
-    path: /health
+    path: /api/v1/health
     port: "8080"
     scrape: "true"
   service:
