@@ -16,7 +16,9 @@ import java.util.List;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
+    @SequenceGenerator(name = "order_seq", sequenceName = "order_sequence", allocationSize = 1, initialValue = 10001)
+
     private Long id;
 
     @JsonFormat(pattern = "dd/MM/yyyy") private LocalDate dateCreated;
