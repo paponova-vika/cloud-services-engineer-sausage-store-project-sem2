@@ -13,7 +13,7 @@ FROM nginx:stable-alpine AS production
 RUN mkdir -p /var/cache/nginx /var/run \
     && chown -R nginx:nginx /var/cache/nginx /var/run /var/log/nginx
 
-COPY --chown=nginx:nginx --from=build /app/dist /usr/share/nginx/html
+COPY --chown=nginx:nginx --from=build /app/dist/frontend /usr/share/nginx/html
 #COPY nginx.conf /etc/nginx/nginx.conf
 
 # Удаляем дефолтный конфиг, чтобы монтировать свой через ConfigMap

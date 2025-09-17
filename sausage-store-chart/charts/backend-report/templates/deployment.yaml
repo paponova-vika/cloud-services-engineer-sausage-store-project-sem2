@@ -87,4 +87,4 @@ metadata:
   name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
 type: Opaque
 data:
-  db_uri: bW9uZ29kYjovL3JlcG9ydHM6cmVwb3J0c3Bhc3N3b3JkQG1vbmdvZGI6MjcwMTcvc2F1c2FnZS1zdG9yZT9hdXRoU291cmNlPXNhdXNhZ2Utc3RvcmUmYXV0aE1lY2hhbmlzbT1TQ1JBTS1TSEEtMjU2
+  db_uri: bW9uZ29kYjovL3Jvb3Q6cm9vdHBhc3N3b3JkQG1vbmdvZGI6MjcwMTcvc2F1c2FnZV9yZXBvcnRzP2F1dGhTb3VyY2U9YWRtaW4=
